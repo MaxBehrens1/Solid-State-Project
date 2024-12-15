@@ -18,6 +18,7 @@ except:
     exit()
 
 folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Confirm_sommerfeld_stable_k/'
+font = {'fontname':'Times New Roman'}
 
 file_list = os.listdir(folder)
 tau = np.array([])
@@ -40,7 +41,9 @@ error_grad = (gradient - excpected_grad)/gradient *100
 print('Calculated -e/hbar =', gradient, '. Error against expected =', error_grad)
 plt.plot(tau, gradient*tau + c, label = 'Fit', alpha = 0.7, color = 'black')
 plt.plot(tau, stable_k, 'o', label ='Data', color = 'black')
-plt.title('Stable <$k_x$> against $tau_{e}$')
+plt.title('Sommerfeld Simulation \n Confirming Fermi Sphere Stabalises at expected <k>')
+plt.xlabel('$tau_e$ (s)')
+plt.ylabel('<$k_x$> (1/m)')
 plt.legend()
 plt.grid()
 plt.show()
