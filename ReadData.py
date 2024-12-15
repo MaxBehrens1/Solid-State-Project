@@ -20,8 +20,10 @@ def ReadData(filename, sim_type):
                 array_list.append(np.array([[float(x) for x in d.split()] for d in g if len(d.strip())]))
         array_list = np.array(array_list[:3])
     if sim_type == "sommer":
-        return array_list[0,:,0], array_list[1,:,1], array_list[0,:,1], array_list[2,:,1]
+        # Returns data in seconds, 1/m, 1/m, eV
+        return array_list[0,:,0]*1e-12, array_list[1,:,1]*1e10, array_list[0,:,1]*1e10, array_list[2,:,1]
     elif sim_type == "drude":
         return array_list[0,:,0], array_list[0,:,1], array_list[2,:,1], array_list[1,:,1]
     else:
         print('Please enter valid sim_type')
+        exit()

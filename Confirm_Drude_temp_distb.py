@@ -8,6 +8,7 @@ try:
     from ReadData import ReadData
 except:
     print('Unable to import ReadData')
+    exit()
 
 #filename = "C:/Users/User/OneDrive - The University of Manchester/Year 3/Estado Sólido/sss/Solid-State-Project/Data/mean_sq_dev_vel_for_t_5e-1ps.txt"
 filename = r'/Users/maxbehrens/OneDrive - UAM/Solid State/Solid-State-Project/Data/Confirm_Drude_temperature_distb/mean_sq_dev_vel_for_t_5e-1ps.txt'
