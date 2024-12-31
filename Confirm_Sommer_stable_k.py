@@ -38,7 +38,7 @@ for file in file_list:
 gradient, c = np.polyfit(tau, stable_k, deg = 1)
 excpected_grad = -1.6e-19 * 1e6 /hbar
 error_grad = (gradient - excpected_grad)/gradient *100
-print('Calculated -e/hbar =', gradient, '. Error against expected =', error_grad)
+print('Calculated -eE/hbar =', gradient, '. Error against expected =', error_grad)
 plt.plot(tau, gradient*tau + c, label = 'Fit', alpha = 0.7, color = 'black')
 plt.plot(tau, stable_k, 'o', label ='Data', color = 'black')
 plt.title('Sommerfeld Simulation \n Confirming Fermi Sphere Stabalises at expected <k>')

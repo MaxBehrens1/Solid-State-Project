@@ -18,7 +18,9 @@ try:
 except:
     print('Unable to import ReadData')
     exit()
-
+    
+print(f'{1.6e-19 / hbar :.4e}')
+exit()
 folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Confirm_sommerfeld_moving_k/'
 file_list = os.listdir(folder)
 E_val = np.array([])
@@ -39,7 +41,7 @@ plt.plot(E_val, gradient*E_val + c, label = 'Fit', alpha = 0.7, color = 'black')
 plt.plot(E_val, gradients, 'o', label ='Data', color = 'black')
 plt.title('Sommerfeld Simulation \n Confirming E-field behaves as expected')
 plt.xlabel('E-field (eV)')
-plt.ylabel('dk/dt (1/ms)')
+plt.ylabel('$dk/dt (1/ms)')
 plt.grid()
 plt.legend()
 plt.show()
