@@ -10,7 +10,7 @@ except:
     print('Unable to import ReadData')
     exit()
 
-folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Temp_Ratio_Sommer/'
+folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/test_ratio/'
 font = {'fontname':'Times New Roman'}
 
 Fermi_E = 10
