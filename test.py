@@ -10,15 +10,14 @@ except:
     print('Unable to import ReadData')
     exit()
 
-folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Ratio_E_sommer/'
-font = {'fontname':'Times New Roman'}
+folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/DeltaE_dependance_sommer/'
 
 Fermi_E = 10
 
 file_list = os.listdir(folder)
 r_E = []
 for file in file_list:
-    ratio = float(file[1:4])
+    ratio = float(file[1:5])
     time, x, y, Energy = ReadData(folder + file, 'sommer')
     index_cutoff = round(len(Energy)*0.1)
     E_data = Energy[index_cutoff:]
@@ -35,7 +34,7 @@ def fit_func(x, a, b):
 plt.errorbar(r_E[:,0], r_E[:,1], linestyle='',
              label ='Data', fmt='o', ecolor='black', capsize=5, color='black')
 plt.title('Sommerfeld Simulation \n Relation between temperature and R')
-plt.xlabel('R (tau_e/tau_i)')
+plt.xlabel('Delta E')
 plt.ylabel('Excess Energy (eV)')
 plt.legend()
 plt.grid()
