@@ -45,7 +45,13 @@ def fit_func(x, a, b):
 def inv_func(y, a, b):
     return b*y/(a-y)
 
+best_time, best_x, best_y, best_Energy = ReadData(str(pathlib.Path(__file__).parent.resolve()) + r'/Data/best_som.txt', 'sommer')
+index_cutoff = round(len(best_Energy)*0.3)
+E_data = best_Energy[index_cutoff:]
+minimum_E = np.mean(E_data) * 20 
+
 par, cov = curve_fit(fit_func, r_mean_std[:,0], r_mean_std[:,1], sigma=r_mean_std[:,2])
+print()
 x_val = np.linspace(min(r_mean_std[:,0]), max(r_mean_std[:,0]))
 plt.plot(x_val, fit_func(x_val, *par), label = 'Fit', alpha = 0.7, color = 'black')
 plt.errorbar(r_mean_std[:,0], r_mean_std[:,1], yerr=r_mean_std[:,2], linestyle='',
