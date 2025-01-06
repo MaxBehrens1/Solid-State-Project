@@ -1,0 +1,47 @@
+if {"$SSS_PROG"!="drude"} {tk_dialog .temp {} "This preset is meant for the program 'drude', and cannot be loaded by '$SSS_PROG'" {} 0 "Ok"; return}
+LASSPselection_set .realf.top.graphtype "average"
+LASSPselection_set .recipf.top.graphtype "average"
+set n_e 32
+set graph_update_delay 10
+LASSPscale2_configure .control.variables.ex -scrollinc .1
+LASSPscale2_configure .control.variables.ex -scrollmin 0
+LASSPscale2_configure .control.variables.ex -scrollmax 10
+LASSPscale2_configure .control.variables.ex -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.ex 10
+LASSPscale2_configure .control.variables.ey -scrollinc .1
+LASSPscale2_configure .control.variables.ey -scrollmin 0
+LASSPscale2_configure .control.variables.ey -scrollmax 10
+LASSPscale2_configure .control.variables.ey -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.ey 0
+LASSPscale2_configure .control.variables.bz -scrollinc 0.1
+LASSPscale2_configure .control.variables.bz -scrollmin 0
+LASSPscale2_configure .control.variables.bz -scrollmax 10
+LASSPscale2_configure .control.variables.bz -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.bz 0
+LASSPscale2_configure .control.variables.tau -scrollinc 1e-1
+LASSPscale2_configure .control.variables.tau -scrollmin 1e-1
+LASSPscale2_configure .control.variables.tau -scrollmax 1e5
+LASSPscale2_configure .control.variables.tau -scrolltype log
+LASSPscale2_set -nocommand .control.variables.tau 1.00e+00
+LASSPscale2_configure .control.variables.temperature -scrollinc 5
+LASSPscale2_configure .control.variables.temperature -scrollmin 0
+LASSPscale2_configure .control.variables.temperature -scrollmax 500
+LASSPscale2_configure .control.variables.temperature -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.temperature 5
+LASSPscale2_configure .control.variables.omega -scrollinc 0.01
+LASSPscale2_configure .control.variables.omega -scrollmin 0
+LASSPscale2_configure .control.variables.omega -scrollmax 1
+LASSPscale2_configure .control.variables.omega -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.omega 0.0
+LASSPscale2_configure .control.variables.phi -scrollinc 0.05
+LASSPscale2_configure .control.variables.phi -scrollmin -2.5
+LASSPscale2_configure .control.variables.phi -scrollmax 2.5
+LASSPscale2_configure .control.variables.phi -scrolltype linear
+LASSPscale2_set -nocommand .control.variables.phi 0.0
+LASSPscale2_configure .control.speed -scrollinc 1
+LASSPscale2_configure .control.speed -scrollmin 0
+LASSPscale2_configure .control.speed -scrollmax 50
+LASSPscale2_configure .control.speed -scrolltype linear
+LASSPscale2_set -nocommand .control.speed 1
+recreate_electrons 32
+tcl_initialize; get_time_step; draw_e_field
