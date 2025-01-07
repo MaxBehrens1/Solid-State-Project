@@ -18,13 +18,11 @@ for file in file_list:
     Ratio = float(file[8:13])
     E_field = float(file[2:4])*1e6        
     time, x, y, Energy = ReadData(path, 'sommer')
-    index_cutoff = round(len(x)*0.1) #Assume that it takes tau*20 to reach equilibrium (actually its around tau*10)
+    index_cutoff = round(len(x)*0.1) #To remove 
     average_x = np.mean(x[index_cutoff:])*1e10
     vel = hbar * average_x / m_e
     E_vel.append([Ratio, E_field, vel])
 E_vel = np.array(E_vel)
-
-
 
 plt.plot(E_vel[:,1], E_vel[:,2], 'o', label ='Data', color = 'black')
 plt.title('Sommerfeld Simulation \n Drift velocity agianst E-field')
