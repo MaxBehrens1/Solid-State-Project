@@ -12,6 +12,7 @@ except:
 folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Comparing_Drift_vel/'
 
 expected_grad = -1.60217663e-19 * 1e-12 / m_e
+print('Theoretical Grad:', expected_grad)
 
 def mean_std(data):
     interval = len(data)//5
@@ -23,6 +24,9 @@ def mean_std(data):
             mean_val = np.mean(data[ind*interval:])
         means.append(mean_val)
     return np.mean(means), np.std(means)
+
+def fit_func(x, m):
+    return m*x
 
 file_list = os.listdir(folder)
 R_E_vel_err_s = []
@@ -41,8 +45,8 @@ for file in file_list:
         E_field = float(file[2:4])*1e6
         times, _, y_data, x_data = ReadData(path, 'drude')
         index_cutoff = round(len(x_data)*0.01) #To remove bit before equilibrium
-        x_data = x_data[index_cutoff:]*1e4
-        average_x, error_x = mean_std(x_data)
+        x_data = x_data[index_cutoff:]
+        average_x, error_x = mean_std(x_data*1e4) #To convert to m/s
         R_E_vel_err_d.append([E_field, average_x, error_x])
 R_E_vel_err_s = np.array(R_E_vel_err_s)
 R_E_vel_err_d = np.array(R_E_vel_err_d)
