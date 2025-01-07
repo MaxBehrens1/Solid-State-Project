@@ -15,7 +15,7 @@ file_list = os.listdir(folder)
 E_vel = []
 for file in file_list:
     path = folder + file
-    Ratio = float(file[8:13])
+    Ratio = 1/float(file[8:13])
     E_field = float(file[2:4])*1e6        
     time, x, y, Energy = ReadData(path, 'sommer')
     index_cutoff = round(len(x)*0.1) #To remove bit before equilibrium
@@ -36,7 +36,7 @@ for i, val in enumerate(pos_ratios):
             cur_data.append([j[1],j[2]])
     cur_data = np.array(cur_data)
     cons = np.polyfit(cur_data[:,0], cur_data[:,1], 1)
-    plt.plot(cur_data[:,0], cur_data[:,1], symbols[i], label =f'R={val}', color = colors[i], alpha = 0.6)
+    plt.plot(cur_data[:,0], cur_data[:,1], symbols[i], label =f'R={val:.2e}', color = colors[i], alpha = 0.8)
     plt.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.3)
     
 
