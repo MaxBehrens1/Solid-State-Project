@@ -11,6 +11,17 @@ except:
     
 folder = str(pathlib.Path(__file__).parent.resolve()) + r'/Data/Comparing_Drift_vel/'
 
+def mean_std(data):
+    interval = len(data)//5
+    means = []
+    for ind in range(5):
+        if ind != 4:
+            mean_val = np.mean(data[ind*interval:(ind+1)*interval])
+        else:
+            mean_val = np.mean(data[ind*interval:])
+        means.append(mean_val)
+    return np.mean(means), np.std(means)
+
 file_list = os.listdir(folder)
 E_vel = []
 for file in file_list:
