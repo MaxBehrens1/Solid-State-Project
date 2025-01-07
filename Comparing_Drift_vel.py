@@ -26,7 +26,7 @@ E_vel = np.array(E_vel)
 
 
 
-plt.plot(E_vel[:,0], E_vel[:,1], 'o', label ='Data', color = 'black')
+plt.plot(E_vel[:,1], E_vel[:,2], 'o', label ='Data', color = 'black')
 plt.title('Sommerfeld Simulation \n Drift velocity agianst E-field')
 plt.xlabel('$E-field (V/m)')
 plt.ylabel('Drift vel (m/s)')
