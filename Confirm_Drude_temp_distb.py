@@ -28,6 +28,7 @@ def weighted_average(y_data, y_errs):
     weighted_avg_err = np.sqrt(1 / np.sum(weights))
     
     return weighted_avg, weighted_avg_err
+
 def Analysis(filename):
     try:
         from ReadData import ReadData
@@ -89,7 +90,8 @@ data = np.genfromtxt("Drude_Current.csv", delimiter=',', skip_header=1)
 temps = data[:,0]
 vel = data[:,1] * 10000
 vel_errs =  data[:,2] * 10000
-
+weighted_avg, weighted_avg_err = weighted_average(vel, vel_errs)
+print(f"Weighted avg: {weighted_avg:.4f} +- {weighted_avg_err/weighted_avg*100:.1f}% (+-{weighted_avg_err:.4f})")
 
 fig = plt.figure()
 axes = fig.add_subplot(111)

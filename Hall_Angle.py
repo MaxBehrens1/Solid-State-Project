@@ -73,12 +73,12 @@ for i, val in enumerate(R_list):
 
 ax.plot(x_val, arctangent(x_val), label = 'Theory')
 ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
-             label =f'R={val:.2e}', fmt=symbols[-1], ecolor=colors[-1], capsize=2, markeredgecolor=colors[-1],
+             label ='Drude', fmt=symbols[-1], ecolor=colors[-1], capsize=2, markeredgecolor=colors[-1],
                  markerfacecolor=colors[-1], alpha = 0.5)
 
 ax.legend()
-ax.set_title('Hall Angle (rad)')
+ax.set_title('Hall Angle')
 ax.set_xlabel(r'B$\tau$ (T$\cdot$s)')
-ax.set_ylabel('Hall Angle')
+ax.set_ylabel('Hall Angle (rad)')
 plt.savefig("Hall_angle.png",dpi=400)
 plt.show()
