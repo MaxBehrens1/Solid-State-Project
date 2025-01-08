@@ -43,17 +43,29 @@ E_mean = np.array(E_mean)
 def fit_func(x, a, b, c, d):
     return a/x + b*np.exp(c*x) + d
 
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+ax.grid('on')
+ax.spines['right'].set_color((.6, .6, .6))
+ax.spines['top'].set_color((.6, .6, .6))
+ax.spines['left'].set_color((0, 0, 0))
+ax.spines['bottom'].set_color((0, 0, 0))
+
+de = r'$\Delta E$'
+
 x_val = np.linspace(0.05, max(E_mean[:,0]), 1000)
 par, cov = curve_fit(fit_func, E_mean[:,0], E_mean[:,1], sigma=[np.mean(i) for i in errors])
-plt.plot(x_val, fit_func(x_val, *par), alpha = 0.5, label = 'Fit', color='black')
-plt.errorbar(E_mean[:,0], E_mean[:,1], yerr=np.transpose(errors), linestyle='',
+ax.plot(x_val, fit_func(x_val, *par), alpha = 0.5, label = 'Fit', color='black')
+ax.errorbar(E_mean[:,0], E_mean[:,1], yerr=np.transpose(errors), linestyle='',
              label ='Data', fmt='o', ecolor='black', capsize=5, markeredgecolor='black',
                  markerfacecolor='white', alpha = 0.9)
-plt.title('Sommerfeld Simulation \n Relation between dE and <E>')
-plt.xlabel('dE (eV)')
-plt.ylabel('Excess Energy (eV)')
-plt.legend()
-plt.grid()
+ax.set_title('Sommerfeld Simulation \n Relation between dE and <E>')
+ax.set_xlabel(de + '(eV)')
+ax.set_ylabel('Excess Energy (eV)')
+ax.legend()
+plt.savefig("Graphs/Relation_between_dE_E.png", dpi=400)
 plt.show()
+
 
     
