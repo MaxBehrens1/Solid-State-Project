@@ -18,6 +18,7 @@ for file in file_list:
     path = folder + file
     if file[0] == 's':
         time, x, y, Energy = ReadData(path, 'sommer')
+        print(np.mean(Energy)*10)
         total_k = np.sqrt(x**2 + y**2)
         vel = total_k * hbar / m_e
         std_v_s.append(np.std(vel))
@@ -31,6 +32,6 @@ for file in file_list:
 # print(np.std(std_v_s))
 # print(std_v_s)
 
-print(np.mean(std_v_d))
-print(np.std(std_v_d))
-print(std_v_d)
+# print(np.mean(std_v_d))
+# print(np.std(std_v_d))
+# print(std_v_d)
