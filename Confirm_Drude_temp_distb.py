@@ -22,6 +22,12 @@ def DrudeTemp(x_data, y_data):
 
     T = (x_avg+y_avg)*(10**8)*(m_e)/(2*k)
     print(f"T = {T:.4f}K")
+def weighted_average(y_data, y_errs):
+    weights = 1 / (y_errs**2)
+    weighted_avg = np.sum(y_data * weights) / np.sum(weights)
+    weighted_avg_err = np.sqrt(1 / np.sum(weights))
+    
+    return weighted_avg, weighted_avg_err
 def Analysis(filename):
     try:
         from ReadData import ReadData

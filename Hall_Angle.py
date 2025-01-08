@@ -77,7 +77,8 @@ ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
                  markerfacecolor=colors[-1], alpha = 0.5)
 
 ax.legend()
-ax.set_title('Hall Angle')
-ax.set_xlabel(r'B$\tau$')
+ax.set_title('Hall Angle (rad)')
+ax.set_xlabel(r'B$\tau$ (T$\cdot$s)')
 ax.set_ylabel('Hall Angle')
+plt.savefig("Hall_angle.png",dpi=400)
 plt.show()
