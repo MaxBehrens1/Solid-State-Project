@@ -78,6 +78,6 @@ ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
 
 ax.legend()
 ax.set_title('Hall Angle')
-ax.set_xlabel('B tau')
+ax.set_xlabel(r'B$\tau$')
 ax.set_ylabel('Hall Angle')
 plt.show()
