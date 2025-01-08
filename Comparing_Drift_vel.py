@@ -54,9 +54,12 @@ R_E_vel_err_d = np.array(R_E_vel_err_d)
 
 x_val = np.linspace(min(R_E_vel_err_s[:,1]), max(R_E_vel_err_s[:,1]))
 symbols = ['.', '^', 'x', 'd', '*', 'p']
-colors = ['k', 'b', 'g', 'r', 'c', 'm']
+colors = ['m', 'b', 'k', 'g', 'r', 'c']
+# ['k', 'b', 'g', 'r', 'c', 'm']
 
-pos_ratios = list(set(R_E_vel_err_s[:,0]))
+offset = 10**4.5
+pos_ratios = list(set(R_E_vel_err_s[:,0])) 
+pos_ratios.sort()
 for i, val in enumerate(pos_ratios):
     cur_data = []
     for j in R_E_vel_err_s:
@@ -64,16 +67,16 @@ for i, val in enumerate(pos_ratios):
             cur_data.append([j[1],j[2], j[3]])
     cur_data = np.array(cur_data)
     cons = np.polyfit(cur_data[:,0], cur_data[:,1], 1, w=1/cur_data[:,2])
-    plt.errorbar(cur_data[:,0], cur_data[:,1], cur_data[:,2], linestyle='',
-             label =f'R={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
-                 markerfacecolor=colors[i], alpha = 0.5)
-    plt.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.7)
+    plt.errorbar(cur_data[:,0]+offset*(-2.5+i), cur_data[:,1], cur_data[:,2], linestyle='',
+             label = r'$R_T$'+f'={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
+                 markerfacecolor=colors[i],markersize=4, alpha = 0.7)
+    plt.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.4)
 
 #Plotting drude
 cons = np.polyfit(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], 1, w=1/R_E_vel_err_d[:,2])
 plt.errorbar(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], R_E_vel_err_d[:,2], linestyle='',
              label ='Drude', fmt='X', ecolor='y', capsize=2, markeredgecolor='y',
-                 markerfacecolor='y', alpha = 0.5)
+                 markerfacecolor='y', markersize=2, alpha = 0.5)
 plt.plot(x_val, x_val*cons[0] + cons[1], color = 'y', alpha = 0.9)
 
 #Plotting expected gradient 
@@ -83,11 +86,12 @@ print(abs((expected_grad-cons[0])/cons[0]) * 100, '%')
 
 #Put legend labels in nice order
 handles, labels = plt.gca().get_legend_handles_labels()
-order = [5,1,2,3,4,6,7,0]
+order = [6,5,4,3,2,1,7,0]
 plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
 
-plt.title('Sommerfeld Simulation \n Drift velocity agianst E-field')
+plt.title('Sommerfeld Simulation \n Drift velocity against E-field')
 plt.xlabel('E-field (V/m)')
 plt.ylabel('Drift vel (m/s)')
 plt.grid()
+plt.savefig("Drift_vel_against_E.png", dpi=400)
 plt.show()
