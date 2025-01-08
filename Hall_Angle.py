@@ -49,6 +49,15 @@ def arctangent(x):
 x_val = np.linspace(0, 20e-12, 1000)
 symbols = ['.', '^', 'x', 'd', '*', 'p']
 colors = ['k', 'b', 'g', 'r', 'c', 'm']
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+
+ax.grid('on')
+ax.spines['right'].set_color((.6, .6, .6))
+ax.spines['top'].set_color((.6, .6, .6))
+ax.spines['left'].set_color((0, 0, 0))
+ax.spines['bottom'].set_color((0, 0, 0))
 
 R_list = list(set(angle_s[:,2]))
 for i, val in enumerate(R_list):
@@ -57,19 +66,18 @@ for i, val in enumerate(R_list):
         if j[2] == val:
             cur_data.append([j[0],j[1], j[3]])
     cur_data = np.array(cur_data)
-    plt.errorbar(cur_data[:,0], cur_data[:,1], cur_data[:,2], linestyle='',
+    ax.errorbar(cur_data[:,0], cur_data[:,1], cur_data[:,2], linestyle='',
              label =f'R={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
                  markerfacecolor=colors[i], alpha = 0.5)
 
 
-plt.plot(x_val, arctangent(x_val), label = 'Theory')
-plt.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
+ax.plot(x_val, arctangent(x_val), label = 'Theory')
+ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
              label =f'R={val:.2e}', fmt=symbols[-1], ecolor=colors[-1], capsize=2, markeredgecolor=colors[-1],
                  markerfacecolor=colors[-1], alpha = 0.5)
 
-plt.legend()
-plt.title('Hall Angle')
-plt.xlabel('B tau')
-plt.ylabel('Hall Angle')
-plt.grid()
+ax.legend()
+ax.set_title('Hall Angle')
+ax.set_xlabel('B tau')
+ax.set_ylabel('Hall Angle')
 plt.show()
