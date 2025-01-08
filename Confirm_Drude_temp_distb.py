@@ -7,6 +7,7 @@ import os
 import csv
 from pathlib import Path # this makes iterating easier
 import matplotlib.pyplot as plt
+import seaborn as sns
 COLLATE_DATA = False
 
 # Set the folder where you keep things
@@ -83,13 +84,23 @@ temps = data[:,0]
 vel = data[:,1] * 10000
 vel_errs =  data[:,2] * 10000
 
-plt.errorbar(temps, vel, vel_errs, ls = 'none', fmt = 'o', label ='Data', 
-             capsize=2, color = 'black')
-plt.title('Tau = 1ps, Drude')
-plt.xlabel('Temperature (K)')
-plt.ylabel('Drift vel (m/s)')
-plt.legend()
-plt.grid()
+
+fig = plt.figure()
+axes = fig.add_subplot(111)
+
+
+axes.grid('on')
+axes.spines['right'].set_color((.6, .6, .6))
+axes.spines['top'].set_color((.6, .6, .6))
+axes.spines['left'].set_color((0, 0, 0))
+axes.spines['bottom'].set_color((0, 0, 0))
+
+axes.errorbar(temps, vel, vel_errs, ls = 'none', fmt = 'o', 
+             label = r'$\tau$ = 1ps', capsize=2, color = 'black')
+axes.set_title(r'Variation of Drift Velocity with $T_D$')
+axes.set_xlabel(r'Temperature $T_D$ (K)')
+axes.set_ylabel(r'Drift vel (ms$^{-1}$)')
+axes.legend()
 plt.savefig("Drude_fixed_Tau_varying_T_drift_vel.png", dpi=400)
 plt.show()
 

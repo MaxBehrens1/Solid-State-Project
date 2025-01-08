@@ -23,7 +23,7 @@ def mean_std(data):
         else:
             mean_val = np.mean(data[ind*interval:])
         means.append(mean_val)
-    return np.mean(means), np.std(means)
+    return np.mean(means), np.std(means)/np.sqrt(5)
 
 def fit_func(x, m):
     return m*x
@@ -56,6 +56,15 @@ x_val = np.linspace(min(R_E_vel_err_s[:,1]), max(R_E_vel_err_s[:,1]))
 symbols = ['.', '^', 'x', 'd', '*', 'p']
 colors = ['m', 'b', 'k', 'g', 'r', 'c']
 # ['k', 'b', 'g', 'r', 'c', 'm']
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+
+ax.grid('on')
+ax.spines['right'].set_color((.6, .6, .6))
+ax.spines['top'].set_color((.6, .6, .6))
+ax.spines['left'].set_color((0, 0, 0))
+ax.spines['bottom'].set_color((0, 0, 0))
 
 offset = 10**4.5
 pos_ratios = list(set(R_E_vel_err_s[:,0])) 
@@ -67,31 +76,29 @@ for i, val in enumerate(pos_ratios):
             cur_data.append([j[1],j[2], j[3]])
     cur_data = np.array(cur_data)
     cons = np.polyfit(cur_data[:,0], cur_data[:,1], 1, w=1/cur_data[:,2])
-    plt.errorbar(cur_data[:,0]+offset*(-2.5+i), cur_data[:,1], cur_data[:,2], linestyle='',
+    ax.errorbar(cur_data[:,0]+offset*(-2.5+i), cur_data[:,1], cur_data[:,2], linestyle='',
              label = r'$R_T$'+f'={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
                  markerfacecolor=colors[i],markersize=4, alpha = 0.7)
-    plt.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.4)
+    ax.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.4)
 
 #Plotting drude
 cons = np.polyfit(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], 1, w=1/R_E_vel_err_d[:,2])
-plt.errorbar(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], R_E_vel_err_d[:,2], linestyle='',
+ax.errorbar(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], R_E_vel_err_d[:,2], linestyle='',
              label ='Drude', fmt='X', ecolor='y', capsize=2, markeredgecolor='y',
                  markerfacecolor='y', markersize=2, alpha = 0.5)
-plt.plot(x_val, x_val*cons[0] + cons[1], color = 'y', alpha = 0.9)
-
+ax.plot(x_val, x_val*cons[0] + cons[1], color = 'y', alpha = 0.9)
 #Plotting expected gradient 
-plt.plot(x_val, x_val * expected_grad, linestyle='dashed', color = 'orange', label = 'Theory')
+ax.plot(x_val, x_val * expected_grad, linestyle='dashed', color = 'orange', label = 'Theory')
 
 print(abs((expected_grad-cons[0])/cons[0]) * 100, '%')
 
 #Put legend labels in nice order
 handles, labels = plt.gca().get_legend_handles_labels()
 order = [6,5,4,3,2,1,7,0]
-plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
+ax.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
 
-plt.title('Sommerfeld Simulation \n Drift velocity against E-field')
-plt.xlabel('E-field (V/m)')
-plt.ylabel('Drift vel (m/s)')
-plt.grid()
+ax.set_title('Sommerfeld Simulation \n Drift velocity against E-field')
+ax.set_xlabel('E-field (V/m)')
+ax.set_ylabel('Drift vel (m/s)')
 plt.savefig("Drift_vel_against_E.png", dpi=400)
 plt.show()
