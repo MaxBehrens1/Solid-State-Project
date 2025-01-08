@@ -97,7 +97,7 @@ handles, labels = plt.gca().get_legend_handles_labels()
 order = [6,5,4,3,2,1,7,0]
 ax.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
 
-ax.set_title('Sommerfeld Simulation \n Drift velocity against E-field')
+ax.set_title('Variation of Drift Velocity with Electric Field Strength')
 ax.set_xlabel('E-field (V/m)')
 ax.set_ylabel('Drift vel (m/s)')
 plt.savefig("Drift_vel_against_E.png", dpi=400)

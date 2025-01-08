@@ -77,7 +77,7 @@ ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
                  markerfacecolor=colors[-1], alpha = 0.5)
 
 ax.legend()
-ax.set_title('Hall Angle')
+ax.set_title('Variation of Hall Angle with Magnetic Field Strength')
 ax.set_xlabel(r'B$\tau$ (T$\cdot$s)')
 ax.set_ylabel('Hall Angle (rad)')
 plt.savefig("Hall_angle.png",dpi=400)
