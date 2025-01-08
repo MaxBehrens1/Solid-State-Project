@@ -107,7 +107,7 @@ for i, val in enumerate(R_list):
             cur_data.append([j[0], j[1], j[3]])
     cur_data = np.array(cur_data)
     ax.errorbar(cur_data[:, 0], cur_data[:, 1], cur_data[:, 2], linestyle='', 
-                label=f'R={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, 
+                label=r'R$_{\tau}$' + f'={val:.0e}', fmt=symbols[i], ecolor=colors[i], capsize=2, 
                 markeredgecolor=colors[i], markerfacecolor=colors[i], alpha=0.5)
     
     # Add fitted curve for this R value
@@ -120,9 +120,13 @@ ax.errorbar(angle_d[:,0], angle_d[:,1], angle_d[:,2], linestyle='',
              label ='Drude', fmt=symbols[-1], ecolor=colors[-1], capsize=2, markeredgecolor=colors[-1],
                  markerfacecolor=colors[-1], alpha = 0.5)
 
-ax.legend()
+#Put legend labels in nice order
+handles, labels = plt.gca().get_legend_handles_labels()
+order = [0,4,3,1,2]
+ax.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
+
 ax.set_title('Variation of Hall Angle with Magnetic Field Strength')
 ax.set_xlabel(r'B$\tau$ (T$\cdot$s)')
 ax.set_ylabel('Hall Angle (rad)')
-plt.savefig("Hall_angle.png",dpi=400)
+plt.savefig("Graphs/Hall_angle.png",dpi=400)
 plt.show()

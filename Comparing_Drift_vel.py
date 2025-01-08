@@ -75,14 +75,16 @@ for i, val in enumerate(pos_ratios):
         if j[0] == val:
             cur_data.append([j[1],j[2], j[3]])
     cur_data = np.array(cur_data)
-    cons = np.polyfit(cur_data[:,0], cur_data[:,1], 1, w=1/cur_data[:,2])
+    cons, cov = np.polyfit(cur_data[:,0], cur_data[:,1], 1, w=1/cur_data[:,2], cov = True)
+    print(f'R={val:.2e}', cons, cov)
     ax.errorbar(cur_data[:,0]+offset*(-2.5+i), cur_data[:,1], cur_data[:,2], linestyle='',
-             label = r'$R_T$'+f'={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
+             label = r'R$_{\tau}$'+f'={val:.2e}', fmt=symbols[i], ecolor=colors[i], capsize=2, markeredgecolor=colors[i],
                  markerfacecolor=colors[i],markersize=4, alpha = 0.7)
     ax.plot(x_val, x_val*cons[0] + cons[1], color = colors[i], alpha = 0.4)
 
 #Plotting drude
-cons = np.polyfit(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], 1, w=1/R_E_vel_err_d[:,2])
+cons, cov = np.polyfit(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], 1, w=1/R_E_vel_err_d[:,2], cov=True)
+print(cons, cov)
 ax.errorbar(R_E_vel_err_d[:,0], R_E_vel_err_d[:,1], R_E_vel_err_d[:,2], linestyle='',
              label ='Drude', fmt='X', ecolor='y', capsize=2, markeredgecolor='y',
                  markerfacecolor='y', markersize=2, alpha = 0.5)
@@ -97,8 +99,10 @@ handles, labels = plt.gca().get_legend_handles_labels()
 order = [6,5,4,3,2,1,7,0]
 ax.legend([handles[idx] for idx in order],[labels[idx] for idx in order])
 
+Vm = r'Vm$^{-1}$'
+ms = r'ms$^{-1}$'
 ax.set_title('Variation of Drift Velocity with Electric Field Strength')
-ax.set_xlabel('E-field (V/m)')
-ax.set_ylabel('Drift vel (m/s)')
-plt.savefig("Drift_vel_against_E.png", dpi=400)
+ax.set_xlabel('E-field ('+Vm+')')
+ax.set_ylabel('Drift vel ('+ms+')')
+# plt.savefig("Graphs/Drift_vel_against_E.png", dpi=400)
 plt.show()

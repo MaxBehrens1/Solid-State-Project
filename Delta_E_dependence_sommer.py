@@ -60,7 +60,7 @@ ax.plot(x_val, fit_func(x_val, *par), alpha = 0.5, label = 'Fit', color='black')
 ax.errorbar(E_mean[:,0], E_mean[:,1], yerr=np.transpose(errors), linestyle='',
              label ='Data', fmt='o', ecolor='black', capsize=5, markeredgecolor='black',
                  markerfacecolor='white', alpha = 0.9)
-ax.set_title('Sommerfeld Simulation \n Relation between dE and <E>')
+ax.set_title('Sommerfeld Simulation \n Relation between ' + de + ' and ' + r'$\langle$E$\rangle$')
 ax.set_xlabel(de + '(eV)')
 ax.set_ylabel('Excess Energy (eV)')
 ax.legend()
